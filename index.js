@@ -52,9 +52,30 @@ const typed = new Typed(".typing", {
   backSpeed: 40,
 });
 
+// --- Slide Show
+
 const splide = new Splide("#project-slideshow", {
   type: "loop",
   autoplay: true,
   pauseOnHover: true,
   interval: 3000,
 }).mount();
+
+// --- Animation
+
+const pathEls = document.querySelectorAll("path");
+for (let i = 0; i < pathEls.length; i++) {
+  const pathEl = pathEls[i];
+  const offset = anime.setDashoffset(pathEl);
+  pathEl.setAttribute("stroke-dashoffset", offset);
+  anime({
+    targets: pathEl,
+    strokeDashoffset: [offset, 0],
+    duration: anime.random(1000, 3000),
+    delay: anime.random(0, 2000),
+    loop: true,
+    direction: "alternate",
+    easing: "easeInOutSine",
+    autoplay: true,
+  });
+}
